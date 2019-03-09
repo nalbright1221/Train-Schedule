@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Ajax / jQuery CDN-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <title>Train Schedule </title>
+    <!--Links to js and css files-->
+ 
+</head>
+
+<body>
+    <div class="header">
+    <h1>Anytime is Train Time</h1>
+    <h2>Check train schedules here</h2>
+    </div>
+
+    <div class="table">
+        <h3>Current Train Schedule</h3>
+        <table style="width:100%">
+            <tr>
+                <th>Train Name</th>
+                <th>Destination</th>
+                <th>Frequency (min)</th>
+                <th>Next Arrival</th>
+                <th>Minutes Away</th>
+            </tr>
+        </table>
+    </div>
+
+    <form class="search-parameters">
+            <h4>Add Train</h2>
+
+            <h5>Train Name</h5>
+            <input id="trainName" type="text" placeholder="Train Name"> <br>
+            <h5>Destination</h5>
+            <input id="destination" type="text" placeholder="Destination"> <br>
+            <h5>First Train Time (HH:mm - military time)</h5>
+            <input id="arrivalTime" type="text" placeholder="Train Arrival Time"> <br>
+            <h5>Frequency (min)</h5>
+            <input id="frequency" type="text" placeholder="Frequency (minutes)"> <br>
+        
+            <input id="userSubmit" type="submit" value="Submit">
+        </form>
+
+
+
+        <script src="./assets/javascript/app.js"></script>
+</body>
+
+</html>
