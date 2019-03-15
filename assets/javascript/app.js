@@ -17,14 +17,14 @@ var database = firebase.database();
 
 //form on click function
 //preventDefault prevent page from reloading 
-$("#userSubmit").on("click", function () {
+$("#add-employee-btn").on("click", function () {
     event.preventDefault();
 
 //takes values from input boxes and trims them 
-    name = $("#trainName").val().trim();
-    destination = $("#destination").val().trim();
-    arrivalTime = $("#arrivalTime").val().trim();
-    frequency = $("#frequency").val().trim();
+    name = $("#employee-name-input").val().trim();
+    destination = $("#role-input").val().trim();
+    arrivalTime = $("#start-input").val().trim();
+    frequency = $("#rate-input").val().trim();
 
     //set count to 0
     count = 0;
@@ -47,11 +47,12 @@ $("#userSubmit").on("click", function () {
     alert("New Train is on the way!");
     
 //empties  the inut box value 
-    $("#trainName").val("");
-    $("#destination").val("");
-    $("#arrivalTime").val("");
-    $("#frequency").val("");
+    $("#employee-name-input").val("");
+    $("#role-input").val("");
+    $("#start-input").val("");
+    $("#rate-input").val("");
 });
+
 
 //
 database.ref().on("child_added", function (document){
@@ -67,12 +68,26 @@ database.ref().on("child_added", function (document){
     var frequency = document.val().frequency;
     var trainArrivalMinutes;
     var trainArrivalTime;
+    var timeArray = arrivalTime.split(":");
+    var now = moment();
 
-    var time = moment(arrivalTime, "HH:MM").subtract(1, "years");
+    console.log(arrivalTime);
 
-    var difference = moment().diff(moment(time), "minutes");
+    // var time = moment(arrivalTime, "HH:MM").subtract(1, "years");
+    var time = moment().hours(timeArray[0]).minutes(timeArray[1]);
+
+
+
+    //your problems is right below 
+    var difference =  now.diff(time, "minutes");
     var total = difference % frequency;
-    trainArrivalMinutes = frequency - total;
+    trainArrivalMinutes =  frequency - total;
+
+    console.log(difference);
+    console.log(total);
+     console.log(time);
+     
+     
 
 
 var nextTrain = moment().add(trainArrivalMinutes, "minutes");
@@ -81,12 +96,12 @@ trainArrivalTime = moment(nextTrain).format("HH:MM");
 var a = "<a href=# onclick=deleteDocument('" + document.key + "');>Delete</a>";
 
 //appends new train information into table 
-$(".table").append(
+$("#employee-table").append(
     $("<tr>").append(
         $("<td>").text(name),
         $("<td>").text(destination),
         $("<td>").text(frequency),
-        $("<td>").text(trainArrivalTime),
+        $("<td>").text(nextTrain.format("hh:mm")),
         $("<td>").text(trainArrivalMinutes),
         $("<td>").html(a)
     ));
